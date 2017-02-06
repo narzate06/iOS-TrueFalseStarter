@@ -92,7 +92,14 @@ class ViewController: UIViewController {
         }
         timerLabel.isHidden = false
         timerLabel.text = "Timer Started!"
+        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(endTimer(timer:)), userInfo: "Times Up", repeats: true)
         
+        questionField.text = question.question
+        answer1Button.setTitle(question.answers[0], for: .normal)
+        answer2Button.setTitle(question.answers[1], for: .normal)
+        answer3Button.setTitle(question.answers[2], for: .normal)
+        answer4Button.setTitle(question.answers[3], for: .normal)
+        playAgainButton.isHidden = true
     }
     
     
@@ -119,13 +126,14 @@ class ViewController: UIViewController {
             correctQuestions += 1
             questionField.text = "Correct!"
             
+            loadNextRoundWithDelay(seconds: 2)
             
         } else {
             
             questionField.text = "Sorry, wrong answer!"
             answerField.isHidden = false
             answerField.text = "The correct answer is \(selectedQuestion.answers[selectedQuestion.answerIndex])"
-            nextQuestion.isHidden = true
+            nextQuestion.isHidden = false
         }
     }
     
