@@ -13,12 +13,13 @@ import AudioToolbox
 class ViewController: UIViewController {
     
     // Game variables
-    let questionsPerRound = 10
+    let questionsPerRound = 4
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion: Int = 0
     var timer: Timer!
     let timeInterval: TimeInterval = 1
+    
     
     // Sounds
     var gameSound: SystemSoundID = 0
@@ -46,10 +47,12 @@ class ViewController: UIViewController {
     
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         loadGameStartSound()
         
         // Start game
+        shuffle()
         playGameStartSound()
         displayQuestion()
 
@@ -57,7 +60,7 @@ class ViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
     func endTimer(timer:Timer) {
@@ -65,7 +68,7 @@ class ViewController: UIViewController {
             timer.invalidate()
             timerLabel.isHidden = true
             questionField.text = "Time Up!"
-            
+        
             let selectedQuestion = questions[indexOfSelectedQuestion]
             answerField.isHidden = false
             answerField.text = "The correct answer is \(selectedQuestion.answers[selectedQuestion.answerIndex])"
@@ -88,6 +91,7 @@ class ViewController: UIViewController {
             
         } else {
             answer4Button.isHidden = false
+            answer4Button.setTitle(question.answers[3], for: .normal)
             
         }
         timerLabel.isHidden = false
