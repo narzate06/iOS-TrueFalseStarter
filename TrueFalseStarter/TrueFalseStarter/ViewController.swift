@@ -34,7 +34,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var timerLabel: UILabel!
     
     @IBOutlet weak var questionField: UILabel!
-    @IBOutlet weak var answerField: UITextField!
+    
+    @IBOutlet weak var answerLabel: UILabel!
     
     @IBOutlet weak var answer1Button: UIButton!
     @IBOutlet weak var answer2Button: UIButton!
@@ -55,6 +56,12 @@ class ViewController: UIViewController {
         shuffle()
         playGameStartSound()
         displayQuestion()
+        answer1Button.layer.cornerRadius = 15
+        answer2Button.layer.cornerRadius = 15
+        answer3Button.layer.cornerRadius = 15
+        answer4Button.layer.cornerRadius = 15
+        nextQuestion.layer.cornerRadius = 15
+        
 
     }
 
@@ -70,8 +77,8 @@ class ViewController: UIViewController {
             questionField.text = "Time Up!"
         
             let selectedQuestion = questions[indexOfSelectedQuestion]
-            answerField.isHidden = false
-            answerField.text = "The correct answer is \(selectedQuestion.answers[selectedQuestion.answerIndex])"
+            answerLabel.isHidden = false
+            answerLabel.text = "The correct answer is \(selectedQuestion.answers[selectedQuestion.answerIndex])"
             nextQuestion.isHidden = false
         }else {
             timerLabel.text = String(timeCount)
@@ -82,7 +89,7 @@ class ViewController: UIViewController {
     
     func displayQuestion() {
         timeCount = 15
-        answerField.isHidden = true
+        answerLabel.isHidden = true
         nextQuestion.isHidden = true
         let question = questions[indexOfSelectedQuestion]
         
@@ -115,7 +122,7 @@ class ViewController: UIViewController {
         
         playAgainButton.isHidden = false
         nextQuestion.isHidden = true
-        answerField.isHidden = true
+        answerLabel.isHidden = true
         questionField.text = "Awesome!\n You got \(correctQuestions) out of \(questionsPerRound) correct!"
     }
     
@@ -135,8 +142,8 @@ class ViewController: UIViewController {
         } else {
             
             questionField.text = "Sorry, wrong answer!"
-            answerField.isHidden = false
-            answerField.text = "The correct answer is \(selectedQuestion.answers[selectedQuestion.answerIndex])"
+            answerLabel.isHidden = false
+            answerLabel.text = "The correct answer is \(selectedQuestion.answers[selectedQuestion.answerIndex])"
             nextQuestion.isHidden = false
         }
     }
